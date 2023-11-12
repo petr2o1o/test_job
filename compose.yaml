@@ -1,0 +1,46 @@
+services:
+  nginx:
+    depends_on:
+      - django
+    build:
+      context: nginx
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    networks:
+      - front-tier
+
+  db:
+    image: postgres:16.0
+    volumes:
+      - db_data:/var/lib/postgresql
+    environment:
+      - POSTGRES_DB=helloworld
+      - POSTGRES_USER=worlduser
+      - POSTGRES_PASSWORD=hellomypasswd
+    networks:
+      - back-tier
+    ports:
+      - "5432:5432"
+
+  django:
+    depends_on:
+      - db
+    build:
+      context: django
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    networks:
+      - back-tier
+      - front-tier
+
+volumes:
+  db_data:
+
+networks:
+  back-tier:
+    driver: bridge
+    internal: true
+  front-tier:
+    driver: bridge
