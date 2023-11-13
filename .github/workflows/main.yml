@@ -15,6 +15,15 @@ jobs:
     # container:
       # image: cytopia/ansible:2.13
     steps:
+
+      - name: git clone repo
+        uses: actions/checkout@v1
+
+      - name: print list files
+        run : |
+          ls -la
+          pwd
+
       - name: ping server
         run : |
           echo yes >> 185.195.26.130 && echo "open" || echo "close"
@@ -23,15 +32,10 @@ jobs:
           echo ${{ vars.YOU_NAME }}
           echo ${{ vars.HOST_IP }}
           ansible -i ansible/inventory all -m ping
-          
-      - name: git clone repo
-        uses: actions/checkout@v1
      
      # - name: ansiple deploy
      #   run : ansible-playbook --private-key ${{ vars.SSH_PRIVATE_KEY }} --user ansible --inventory ansible/inventory ansible/
     
-      - name: print list files
-        run : ls -la
 
      # - name: build and run
      #   run : docker compose run
