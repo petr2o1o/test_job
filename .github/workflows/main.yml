@@ -1,0 +1,31 @@
+name: CICD
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: docker:dind
+    steps:
+      - name: git clone repo
+        uses: actions/checkout@v1
+        
+      - name: print list files
+        run : ls -la
+
+      - name: build and run
+        run : docker compose run
+
+      - name: page nginx accessibility check
+        run : if curl -s $(hostname -i) | grep Hello; then exit 1; else exit 0; fi
+        
+      - name: page django accessibility check
+        run : if curl -s $(hostname -i):8000 | grep Hello; then exit 1; else exit 0; fi
+        
+      - name: page static files accessibility check
+        run : if curl -s $(hostname -i)/static_files/ | grep Hello; then exit 1; else exit 0; fi
