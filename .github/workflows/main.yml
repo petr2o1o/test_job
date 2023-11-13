@@ -20,7 +20,7 @@ jobs:
           echo yes >> 185.195.26.130 && echo "open" || echo "close"
           echo "123"
           echo $HOST_IP
-          echo ${{ vars.NAME_MY }}
+          echo ${{ vars.YOU_NAME }}
           echo ${{ vars.HOST_IP }}
           ansible 185.195.26.130 -m ping
           
