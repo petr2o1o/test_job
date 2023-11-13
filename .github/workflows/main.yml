@@ -31,7 +31,7 @@ jobs:
           echo $HOST_IP
           echo ${{ vars.YOU_NAME }}
           echo ${{ vars.HOST_IP }}
-          ansible -i ansible/inventory all --private-key ${{ vars.SSH_PRIVATE_KEY }} -m ping
+         
      
       - name: ansiple deploy
         run : ansible-playbook --private-key ${{ vars.SSH_PRIVATE_KEY }} --user ansible --inventory ansible/inventory ansible/playbook.yml
