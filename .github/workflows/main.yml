@@ -11,6 +11,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    environment: dev
     # container:
       # image: cytopia/ansible:2.13
     steps:
@@ -18,8 +19,9 @@ jobs:
         run : |
           echo yes >> 185.195.26.130 && echo "open" || echo "close"
           echo "123"
-          echo ${{ env.YOU_NAME }}
-          echo ${{ env.NAME_MY }}
+          echo $HOST_IP
+          echo ${{ env.HOST_IP }}
+          echo ${{ vars.HOST_IP }}
           ansible 185.195.26.130 -m ping
           
      # - name: git clone repo
