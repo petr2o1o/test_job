@@ -1,0 +1,2 @@
+[develop]
+185.195.26.130 ansible_ssh_user=ansible
