@@ -18,8 +18,8 @@ jobs:
         run : |
           echo yes >> 185.195.26.130 && echo "open" || echo "close"
           echo "123"
-          echo $YOU_NAME
-          echo $NAME_MY
+          echo ${{ env.YOU_NAME }}
+          echo ${{ env.NAME_MY }}
           ansible 185.195.26.130 -m ping
           
      # - name: git clone repo
