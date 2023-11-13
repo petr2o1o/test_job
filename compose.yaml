@@ -27,7 +27,6 @@ services:
     depends_on:
       - db
     build:
-      context: django
       dockerfile: Dockerfile
     ports:
       - "8000:8000"
