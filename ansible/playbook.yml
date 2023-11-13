@@ -1,0 +1,21 @@
+---
+- hosts: all
+  become: true
+
+  tasks:
+    - include_vars: vars.yml
+
+    - name: check project directory exists
+      stat:
+        path: '/helloworld'
+      register: check_project_dir
+
+    - debug:
+      msg: {{ check_project_dir }}
+
+    - name: create project directory
+      file:
+        path:'/helloworld'
+        state: directory
+        owner: 'ansible'
+        group: 'ansible'
