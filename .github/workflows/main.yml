@@ -9,9 +9,11 @@ on:
      - master
 
 jobs:
- build:
-   runs-on: cytopia/ansible:2.13
-   steps:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: cytopia/ansible:2.13
+    steps:
       - name: ping server
         run : ping -c 3 185.195.26.130
         
