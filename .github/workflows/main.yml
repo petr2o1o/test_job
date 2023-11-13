@@ -11,12 +11,15 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    container:
-      image: cytopia/ansible:2.13
+    # container:
+      # image: cytopia/ansible:2.13
     steps:
       - name: ping server
-        run : ping 185.195.26.130
-        
+        run : |
+          echo yes >> 185.195.26.130 && echo "open" || echo "close"
+          echo "123"
+          ansible -v
+          
      # - name: git clone repo
      #   uses: actions/checkout@v1
        
