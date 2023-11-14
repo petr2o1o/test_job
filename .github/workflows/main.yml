@@ -1,4 +1,4 @@
-# name: CICD
+name: CICD
 
 on:
  push:
@@ -34,7 +34,6 @@ jobs:
           port: ${{ secrets.PORT }}
           source: "project.tar.gz"
           target: "./"
-
           
       - name: executing remote ssh commands using ssh key
         uses: appleboy/ssh-action@v1.0.0
@@ -44,7 +43,6 @@ jobs:
           key: ${{ secrets.KEY }}
           port: ${{ secrets.PORT }}
           script: |
-                    ls -al
                     mkdir helloworld
                     mv project.tar.gz helloworld
                     gunzip helloworld/project.tar.gz
@@ -60,6 +58,7 @@ jobs:
           port: ${{ secrets.PORT }}
           script: |
                     cd helloworld
+                    pwd
                     docker compose run 
                     docker images
                     docker ps
@@ -86,9 +85,6 @@ jobs:
       #     export ANSIBLE_PERSISTENT_COMMAND_TIMEOUT=30
       #     ansible-playbook --user ansible --inventory ansible/inventory ansible/playbook.yml
     
-      - name: build-and-run
-        run: docker compose down
-
      # - name: page nginx accessibility check
      #   run : if curl -s $(hostname -i) | grep Hello; then exit 1; else exit 0; fi
        
