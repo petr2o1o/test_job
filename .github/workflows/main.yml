@@ -19,14 +19,14 @@ jobs:
       - name: git clone repo
         uses: actions/checkout@v1
 
-      # - name: print list files
-      #   run : |
-      #     ls -la
-      #     pwd
-      #     # echo ${{ vars.SSH_KEY }} > ansible/key
-      #     # cat ansible/key
-      #     # chmod 600 ansible/key
-      #     ls -la ansible
+      - name: print list files
+        run : |
+          ssh-keygen ansible
+          echo Host 185.195.26.130 >> config
+          echo User ansible >> config
+          echo IdentityFile ~/.ssh/ansible >> config
+          ssh-keyscan -t rsa remote_host  >> ~/.ssh/known_hosts
+          cat ansible.pub
 
       - name: ping server
         run : |
