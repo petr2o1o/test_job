@@ -72,7 +72,7 @@ jobs:
                     cd ./helloworld
                     pwd
                     ls -la
-                    docker compose -d run 
+                    docker compose up -d
                     docker images
                     docker ps
                     docker ps -a
