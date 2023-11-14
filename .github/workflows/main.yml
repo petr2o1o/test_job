@@ -24,6 +24,7 @@ jobs:
           ls -la
           pwd
           echo ${{ vars.SSH_PRIVATE_KEY }} > ansible/key
+          cat ansible/key
           chmod 600 ansible/key
           ls -la ansible
           cat ansible/key
