@@ -1,4 +1,4 @@
-name: CICD
+# name: CICD
 
 on:
  push:
@@ -35,7 +35,14 @@ jobs:
      
       - name: ansiple deploy
         run : |
-          # export ANSIBLE_HOST_KEY_CHECKING=False
+          export ANSIBLE_HOST_KEY_CHECKING=False
+          export ANSIBLE_FORCE_COLOR=true
+          export ANSIBLE_CALLBACK_WHITELIST=profile_tasks
+          export ANSIBLE_GATHER_TIMEOUT=60
+          export ANSIBLE_TIMEOUT=60
+          export ANSIBLE_PERSISTENT_CONNECT_TIMEOUT=120
+          export ANSIBLE_PERSISTENT_CONNECT_RETRY_TIMEOUT=30
+          export ANSIBLE_PERSISTENT_COMMAND_TIMEOUT=30
           ansible-playbook --private-key=${{ vars.SSH_PRIVATE_KEY }} --user ansible --inventory ansible/inventory ansible/playbook.yml
     
 
