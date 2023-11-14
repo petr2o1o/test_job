@@ -24,10 +24,10 @@ jobs:
           ls -la
           pwd
           echo ${{ vars.SSH_KEY }} > ansible/key
-          cat ansible/key
+          # cat ansible/key
           chmod 600 ansible/key
           ls -la ansible
-          cat ansible/key
+          # cat ansible/key
           
 
       - name: ping server
