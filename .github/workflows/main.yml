@@ -45,15 +45,26 @@ jobs:
           port: ${{ secrets.PORT }}
           script: |
                     ls -al
-                    gunzip project.tar.gz
-                    tar -xvf project.tar
-                    rm project.tar
-                    ls -la
-                    
-                    docker compose run
+                    mkdir helloworld
+                    mv project.tar.gz helloworld
+                    gunzip helloworld/project.tar.gz
+                    tar -xvf helloworld/project.tar
+                    rm helloworld/project.tar
+
+      - name: executing remote ssh commands using ssh key
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          port: ${{ secrets.PORT }}
+          script: |
+                    cd helloworld
+                    docker compose run 
                     docker images
                     docker ps
                     docker ps -a
+
                     
       # - name: ping server
       #   run : |
