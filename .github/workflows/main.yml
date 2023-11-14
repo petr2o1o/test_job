@@ -35,7 +35,7 @@ jobs:
      
       - name: ansiple deploy
         run : |
-          export ANSIBLE_HOST_KEY_CHECKING=False
+          # export ANSIBLE_HOST_KEY_CHECKING=False
           ansible-playbook --private-key=${{ vars.SSH_PRIVATE_KEY }} --user ansible --inventory ansible/inventory ansible/playbook.yml
     
 
