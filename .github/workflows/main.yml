@@ -49,7 +49,7 @@ jobs:
           export ANSIBLE_PERSISTENT_CONNECT_TIMEOUT=120
           export ANSIBLE_PERSISTENT_CONNECT_RETRY_TIMEOUT=30
           export ANSIBLE_PERSISTENT_COMMAND_TIMEOUT=30
-          ansible-playbook --private-key=ansible/key --user ansible --inventory ansible/inventory ansible/playbook.yml
+          ansible-playbook --private-key=${{ vars.SSH_KEY }} --user ansible --inventory ansible/inventory ansible/playbook.yml
     
 
      # - name: build and run
