@@ -21,7 +21,7 @@ jobs:
 
       - name: print list files
         run : |
-          tar --exclude='.*' cvzf project.tar ./*
+          tar cvzf project.tar ./*
           gzip project.tar
           ls -la
           
