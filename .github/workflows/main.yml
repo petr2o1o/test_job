@@ -56,7 +56,9 @@ jobs:
                     # mv project.tar.gz helloworld
                     gunzip ./helloworld/project.tar.gz ./helloworld
                     tar -xvf ./helloworld/project.tar ./helloworld
-                    rm ./helloworld/project.tar
+                    ls -la
+                    ls -la ./helloworld
+                    # rm ./helloworld/project.tar
 
       - name: executing remote ssh commands using ssh key
         uses: appleboy/ssh-action@v1.0.0
@@ -68,6 +70,7 @@ jobs:
           script: |
                     cd ./helloworld
                     pwd
+                    ls -la
                     docker compose -d run 
                     docker images
                     docker ps
