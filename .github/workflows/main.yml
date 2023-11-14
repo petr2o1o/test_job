@@ -32,7 +32,7 @@ jobs:
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.KEY }}
           port: ${{ secrets.PORT }}
-          script: mkdir /helloworld
+          script: mkdir ./helloworld
 
       - name: copy file via ssh password
         uses: appleboy/scp-action@master
@@ -42,7 +42,7 @@ jobs:
           key: ${{ secrets.KEY }}
           port: ${{ secrets.PORT }}
           source: "project.tar.gz"
-          target: "/helloworld"
+          target: "./helloworld"
           
       - name: executing remote ssh commands using ssh key
         uses: appleboy/ssh-action@v1.0.0
@@ -54,9 +54,9 @@ jobs:
           script: |
                     # mkdir helloworld
                     # mv project.tar.gz helloworld
-                    gunzip /helloworld/project.tar.gz
-                    tar -xvf /helloworld/project.tar
-                    rm /helloworld/project.tar
+                    gunzip ./helloworld/project.tar.gz
+                    tar -xvf ./helloworld/project.tar
+                    rm ./helloworld/project.tar
 
       - name: executing remote ssh commands using ssh key
         uses: appleboy/ssh-action@v1.0.0
@@ -66,7 +66,7 @@ jobs:
           key: ${{ secrets.KEY }}
           port: ${{ secrets.PORT }}
           script: |
-                    cd /helloworld
+                    cd ./helloworld
                     pwd
                     docker compose run 
                     # docker images
