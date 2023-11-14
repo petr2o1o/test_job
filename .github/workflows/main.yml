@@ -54,8 +54,8 @@ jobs:
           script: |
                     # mkdir helloworld
                     # mv project.tar.gz helloworld
-                    gunzip ./helloworld/project.tar.gz
-                    tar -xvf ./helloworld/project.tar
+                    gunzip ./helloworld/project.tar.gz ./helloworld
+                    tar -xvf ./helloworld/project.tar ./helloworld
                     rm ./helloworld/project.tar
 
       - name: executing remote ssh commands using ssh key
