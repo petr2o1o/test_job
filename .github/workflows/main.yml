@@ -27,7 +27,7 @@ jobs:
           echo User ansible >> ~/.ssh/config
           echo IdentityFile ~/.ssh/ansible >> ~/.ssh/config
           ssh-keyscan -t rsa remote_host  >> ~/.ssh/known_hosts
-          cat ansible.pub
+          # cat ansible.pub
 
       - name: ping server
         run : |
