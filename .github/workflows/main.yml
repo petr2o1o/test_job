@@ -24,7 +24,7 @@ jobs:
           tar cvzf project.tar ./*
           gzip project.tar
           
-      - name: executing remote ssh commands using ssh key
+      - name: docker compose down and create backup
         uses: appleboy/ssh-action@v1.0.0
         with:
           host: ${{ secrets.HOST }}
@@ -34,7 +34,7 @@ jobs:
           script: |
                    cd ./helloworld
                    docker compose down
-                   docker docker rmi -f $(docker images -aq)
+                   docker rmi -f $(docker images -aq)
                    mv project.tar ../project.tar_$(date -d "today" +"%Y%m%d%H%M")
                    rm -r *
 
@@ -70,7 +70,7 @@ jobs:
                     gunzip project.tar.gz 
                     tar -xvf project.tar 
 
-      - name: executing remote ssh commands using ssh key
+      - name: docker compose up
         uses: appleboy/ssh-action@v1.0.0
         with:
           host: ${{ secrets.HOST }}
