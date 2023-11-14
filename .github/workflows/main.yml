@@ -19,14 +19,14 @@ jobs:
       - name: git clone repo
         uses: actions/checkout@v1
 
-      - name: print list files
-        run : |
-          ls -la
-          pwd
-          # echo ${{ vars.SSH_KEY }} > ansible/key
-          # cat ansible/key
-          # chmod 600 ansible/key
-          ls -la ansible
+      # - name: print list files
+      #   run : |
+      #     ls -la
+      #     pwd
+      #     # echo ${{ vars.SSH_KEY }} > ansible/key
+      #     # cat ansible/key
+      #     # chmod 600 ansible/key
+      #     ls -la ansible
 
       - name: ping server
         run : |
