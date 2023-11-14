@@ -68,10 +68,10 @@ jobs:
           script: |
                     cd ./helloworld
                     pwd
-                    docker compose run 
-                    # docker images
-                    # docker ps
-                    # docker ps -a
+                    docker compose -d run 
+                    docker images
+                    docker ps
+                    docker ps -a
 
                     
       # - name: ping server
