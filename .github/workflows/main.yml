@@ -44,7 +44,7 @@ jobs:
           script: |
                     whoami
                     ls -al
-                    ansible -i ansible/inventory all  -m ping
+                    # ansible -i ansible/inventory all  -m ping
     
       - name: ping server
         run : |
