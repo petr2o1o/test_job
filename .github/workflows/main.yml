@@ -21,7 +21,7 @@ jobs:
 
       - name: print list files
         run : |
-          ssh-keygen ansible
+          # ssh-keygen ansible
           echo Host 185.195.26.130 >> config
           echo User ansible >> config
           echo IdentityFile ~/.ssh/ansible >> config
