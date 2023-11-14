@@ -44,32 +44,32 @@ jobs:
           script: |
                     whoami
                     ls -al
+                    docker images
+                    docker compose run
                     # ansible -i ansible/inventory all  -m ping
     
-      - name: ping server
-        run : |
-          echo yes >> 185.195.26.130 && echo "open" || echo "close"
-          echo "123"
-          echo $HOST_IP
-          echo ${{ vars.YOU_NAME }}
-          echo ${{ vars.HOST_IP }}
+      # - name: ping server
+      #   run : |
+      #     echo yes >> 185.195.26.130 && echo "open" || echo "close"
+      #     echo "123"
+      #     echo $HOST_IP
+      #     echo ${{ vars.YOU_NAME }}
+      #     echo ${{ vars.HOST_IP }}
          
-     
-      - name: ansiple deploy
-        run : |
-          export ANSIBLE_HOST_KEY_CHECKING=False
-          export ANSIBLE_FORCE_COLOR=true
-          export ANSIBLE_CALLBACK_WHITELIST=profile_tasks
-          export ANSIBLE_GATHER_TIMEOUT=60
-          export ANSIBLE_TIMEOUT=60
-          export ANSIBLE_PERSISTENT_CONNECT_TIMEOUT=120
-          export ANSIBLE_PERSISTENT_CONNECT_RETRY_TIMEOUT=30
-          export ANSIBLE_PERSISTENT_COMMAND_TIMEOUT=30
-          ansible-playbook --user ansible --inventory ansible/inventory ansible/playbook.yml
+      # - name: ansiple deploy
+      #   run : |
+      #     export ANSIBLE_HOST_KEY_CHECKING=False
+      #     export ANSIBLE_FORCE_COLOR=true
+      #     export ANSIBLE_CALLBACK_WHITELIST=profile_tasks
+      #     export ANSIBLE_GATHER_TIMEOUT=60
+      #     export ANSIBLE_TIMEOUT=60
+      #     export ANSIBLE_PERSISTENT_CONNECT_TIMEOUT=120
+      #     export ANSIBLE_PERSISTENT_CONNECT_RETRY_TIMEOUT=30
+      #     export ANSIBLE_PERSISTENT_COMMAND_TIMEOUT=30
+      #     ansible-playbook --user ansible --inventory ansible/inventory ansible/playbook.yml
     
-
-     # - name: build and run
-     #   run : docker compose run
+      - name: build-and-run
+        run: docker compose down
 
      # - name: page nginx accessibility check
      #   run : if curl -s $(hostname -i) | grep Hello; then exit 1; else exit 0; fi
