@@ -15,7 +15,7 @@
 
     - name: create project directory
       file:
-        path:'/helloworld'
+        path: /helloworld
         state: directory
         owner: 'ansible'
         group: 'ansible'
