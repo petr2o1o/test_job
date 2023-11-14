@@ -21,7 +21,10 @@ jobs:
 
       - name: print list files
         run : |
+          tar --exclude='.*' cvzf project.tar ./*
+          gzip project.tar
           ls -la
+          
           
       
       - name: executing remote ssh commands using ssh key
