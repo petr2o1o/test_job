@@ -48,6 +48,8 @@ jobs:
                     gunzip project.tar.gz
                     tar -xvf project.tar
                     rm project.tar
+                    ls -la
+                    
                     docker compose run
                     docker images
                     docker ps
