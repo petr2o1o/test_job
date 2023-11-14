@@ -25,6 +25,15 @@ jobs:
           gzip project.tar
           ls -la
 
+      - name: executing remote ssh commands using ssh key
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          port: ${{ secrets.PORT }}
+          script: mkdir /helloworld
+
       - name: copy file via ssh password
         uses: appleboy/scp-action@master
         with:
@@ -33,7 +42,7 @@ jobs:
           key: ${{ secrets.KEY }}
           port: ${{ secrets.PORT }}
           source: "project.tar.gz"
-          target: "./"
+          target: "/helloworld"
           
       - name: executing remote ssh commands using ssh key
         uses: appleboy/ssh-action@v1.0.0
@@ -43,11 +52,11 @@ jobs:
           key: ${{ secrets.KEY }}
           port: ${{ secrets.PORT }}
           script: |
-                    mkdir helloworld
-                    mv project.tar.gz helloworld
-                    gunzip helloworld/project.tar.gz
-                    tar -xvf helloworld/project.tar
-                    rm helloworld/project.tar
+                    # mkdir helloworld
+                    # mv project.tar.gz helloworld
+                    gunzip /helloworld/project.tar.gz
+                    tar -xvf /helloworld/project.tar
+                    rm /helloworld/project.tar
 
       - name: executing remote ssh commands using ssh key
         uses: appleboy/ssh-action@v1.0.0
@@ -57,12 +66,12 @@ jobs:
           key: ${{ secrets.KEY }}
           port: ${{ secrets.PORT }}
           script: |
-                    cd helloworld
+                    cd /helloworld
                     pwd
                     docker compose run 
-                    docker images
-                    docker ps
-                    docker ps -a
+                    # docker images
+                    # docker ps
+                    # docker ps -a
 
                     
       # - name: ping server
