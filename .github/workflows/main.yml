@@ -45,8 +45,9 @@ jobs:
           port: ${{ secrets.PORT }}
           script: |
                     ls -al
-                    unzip -r project.tar.gz
+                    gunzip project.tar.gz
                     tar -xvf project.tar
+                    rm project.tar
                     docker compose run
                     docker images
                     docker ps
