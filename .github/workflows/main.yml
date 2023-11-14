@@ -19,14 +19,23 @@ jobs:
       - name: git clone repo
         uses: actions/checkout@v1
 
-      - name: print list files
+      - name: creating a project archive
         run : |
           tar cvzf project.tar ./*
           gzip project.tar
           ls -la
+
+      - name: copy file via ssh password
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          port: ${{ secrets.PORT }}
+          source: "project.tar.gz"
+          target: "./"
+
           
-          
-      
       - name: executing remote ssh commands using ssh key
         uses: appleboy/ssh-action@v1.0.0
         with:
