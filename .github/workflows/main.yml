@@ -27,6 +27,9 @@ jobs:
           echo User ansible >> ~/.ssh/config
           echo IdentityFile ~/.ssh/ansible >> ~/.ssh/config
           ssh-keyscan -t rsa remote_host  >> ~/.ssh/known_hosts
+          ls -la ~/.ssh/
+          cat ~/.ssh/config
+          echo ${{ vars.SSH_KEY }} >  ~/.ssh/ansible
           # cat ansible.pub
 
       - name: ping server
@@ -48,7 +51,7 @@ jobs:
           export ANSIBLE_PERSISTENT_CONNECT_TIMEOUT=120
           export ANSIBLE_PERSISTENT_CONNECT_RETRY_TIMEOUT=30
           export ANSIBLE_PERSISTENT_COMMAND_TIMEOUT=30
-          ansible-playbook --private-key=${{ vars.SSH_KEY }} --user ansible --inventory ansible/inventory ansible/playbook.yml
+          ansible-playbook --private-key=~/.ssh/ansible --user ansible --inventory ansible/inventory ansible/playbook.yml
     
 
      # - name: build and run
