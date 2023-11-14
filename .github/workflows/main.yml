@@ -23,6 +23,11 @@ jobs:
         run : |
           ls -la
           pwd
+          echo ${{ vars.SSH_PRIVATE_KEY }} > ansible/key
+          chmod 600 ansible/key
+          ls -la ansible
+          cat ansible/key
+          
 
       - name: ping server
         run : |
@@ -43,7 +48,7 @@ jobs:
           export ANSIBLE_PERSISTENT_CONNECT_TIMEOUT=120
           export ANSIBLE_PERSISTENT_CONNECT_RETRY_TIMEOUT=30
           export ANSIBLE_PERSISTENT_COMMAND_TIMEOUT=30
-          ansible-playbook --private-key=${{ vars.SSH_PRIVATE_KEY }} --user ansible --inventory ansible/inventory ansible/playbook.yml
+          ansible-playbook --private-key=ansible/key --user ansible --inventory ansible/inventory ansible/playbook.yml
     
 
      # - name: build and run
