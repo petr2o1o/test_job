@@ -23,8 +23,7 @@ jobs:
         run : |
           tar cvzf project.tar ./*
           gzip project.tar
-          ls -la
-
+          
       - name: executing remote ssh commands using ssh key
         uses: appleboy/ssh-action@v1.0.0
         with:
@@ -32,7 +31,22 @@ jobs:
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.KEY }}
           port: ${{ secrets.PORT }}
-          script: mkdir ./helloworld
+          script: |
+                   cd ./helloworld
+                   docker compose down
+                   docker docker rmi -f $(docker images -aq)
+                   mv project.tar ../project.tar_$(date -d "today" +"%Y%m%d%H%M")
+                   rm -r *
+
+          
+      # - name: executing remote ssh commands using ssh key
+      #   uses: appleboy/ssh-action@v1.0.0
+      #   with:
+      #     host: ${{ secrets.HOST }}
+      #     username: ${{ secrets.USERNAME }}
+      #     key: ${{ secrets.KEY }}
+      #     port: ${{ secrets.PORT }}
+      #     script: mkdir ./helloworld
 
       - name: copy file via ssh password
         uses: appleboy/scp-action@master
@@ -52,14 +66,9 @@ jobs:
           key: ${{ secrets.KEY }}
           port: ${{ secrets.PORT }}
           script: |
-                    # mkdir helloworld
-                    # mv project.tar.gz helloworld
                     cd helloworld
                     gunzip project.tar.gz 
                     tar -xvf project.tar 
-                    ls -la
-                    ls -la ./helloworld
-                    # rm ./helloworld/project.tar
 
       - name: executing remote ssh commands using ssh key
         uses: appleboy/ssh-action@v1.0.0
@@ -70,39 +79,7 @@ jobs:
           port: ${{ secrets.PORT }}
           script: |
                     cd ./helloworld
-                    pwd
-                    ls -la
                     docker compose up -d
                     docker images
                     docker ps
                     docker ps -a
-
-                    
-      # - name: ping server
-      #   run : |
-      #     echo yes >> 185.195.26.130 && echo "open" || echo "close"
-      #     echo "123"
-      #     echo $HOST_IP
-      #     echo ${{ vars.YOU_NAME }}
-      #     echo ${{ vars.HOST_IP }}
-         
-      # - name: ansiple deploy
-      #   run : |
-      #     export ANSIBLE_HOST_KEY_CHECKING=False
-      #     export ANSIBLE_FORCE_COLOR=true
-      #     export ANSIBLE_CALLBACK_WHITELIST=profile_tasks
-      #     export ANSIBLE_GATHER_TIMEOUT=60
-      #     export ANSIBLE_TIMEOUT=60
-      #     export ANSIBLE_PERSISTENT_CONNECT_TIMEOUT=120
-      #     export ANSIBLE_PERSISTENT_CONNECT_RETRY_TIMEOUT=30
-      #     export ANSIBLE_PERSISTENT_COMMAND_TIMEOUT=30
-      #     ansible-playbook --user ansible --inventory ansible/inventory ansible/playbook.yml
-    
-     # - name: page nginx accessibility check
-     #   run : if curl -s $(hostname -i) | grep Hello; then exit 1; else exit 0; fi
-       
-     # - name: page django accessibility check
-     #   run : if curl -s $(hostname -i):8000 | grep Hello; then exit 1; else exit 0; fi
-       
-     # - name: page static files accessibility check
-     #   run : if curl -s $(hostname -i)/static_files/ | grep Hello; then exit 1; else exit 0; fi
