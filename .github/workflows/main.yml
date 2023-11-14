@@ -54,8 +54,9 @@ jobs:
           script: |
                     # mkdir helloworld
                     # mv project.tar.gz helloworld
-                    gunzip ./helloworld/project.tar.gz ./helloworld
-                    tar -xvf ./helloworld/project.tar ./helloworld
+                    cd helloworld
+                    gunzip project.tar.gz 
+                    tar -xvf project.tar 
                     ls -la
                     ls -la ./helloworld
                     # rm ./helloworld/project.tar
