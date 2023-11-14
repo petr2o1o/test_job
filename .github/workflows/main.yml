@@ -23,6 +23,8 @@ jobs:
         run : |
           # ssh-keygen ansible
           mkdir -p ~/.ssh/
+          pwd
+          ls -ls ~/
           echo Host 185.195.26.130 >> ~/.ssh/config
           echo User ansible >> ~/.ssh/config
           echo IdentityFile ~/.ssh/ansible >> ~/.ssh/config
