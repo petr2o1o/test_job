@@ -44,13 +44,14 @@ jobs:
           key: ${{ secrets.KEY }}
           port: ${{ secrets.PORT }}
           script: |
-                    whoami
-                    pwd
                     ls -al
+                    unzip -r project.tar.gz
+                    tar -xvf project.tar
+                    docker compose run
                     docker images
-                    # docker compose run
-                    # ansible -i ansible/inventory all  -m ping
-    
+                    docker ps
+                    docker ps -a
+                    
       # - name: ping server
       #   run : |
       #     echo yes >> 185.195.26.130 && echo "open" || echo "close"
