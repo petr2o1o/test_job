@@ -10,8 +10,10 @@
         path: '/helloworld'
       register: check_project_dir
 
-    - debug:
-      msg: {{ check_project_dir }}
+    - name: print check
+      debug:
+        var: check_project_dir
+
 
     - name: create project directory
       file:
