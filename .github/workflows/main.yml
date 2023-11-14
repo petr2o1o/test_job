@@ -35,18 +35,8 @@ jobs:
                    cd ./helloworld
                    docker compose down
                    docker rmi -f $(docker images -aq)
-                   mv project.tar ../project.tar_$(date -d "today" +"%Y%m%d%H%M")
+                   mv project.tar ../backup/project.tar_$(date -d "today" +"%Y%m%d%H%M")
                    rm -r *
-
-          
-      # - name: executing remote ssh commands using ssh key
-      #   uses: appleboy/ssh-action@v1.0.0
-      #   with:
-      #     host: ${{ secrets.HOST }}
-      #     username: ${{ secrets.USERNAME }}
-      #     key: ${{ secrets.KEY }}
-      #     port: ${{ secrets.PORT }}
-      #     script: mkdir ./helloworld
 
       - name: copy file via ssh password
         uses: appleboy/scp-action@master
