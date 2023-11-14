@@ -19,21 +19,33 @@ jobs:
       - name: git clone repo
         uses: actions/checkout@v1
 
-      - name: print list files
-        run : |
-          # ssh-keygen ansible
-          mkdir -p ~/.ssh/
-          pwd
-          ls -ls ~/
-          echo Host 185.195.26.130 >> ~/.ssh/config
-          echo User ansible >> ~/.ssh/config
-          echo IdentityFile ~/.ssh/ansible >> ~/.ssh/config
-          ssh-keyscan -t rsa remote_host  >> ~/.ssh/known_hosts
-          ls -la ~/.ssh/
-          cat ~/.ssh/config
-          echo ${{ vars.SSH_KEY }} >  ~/.ssh/ansible
-          # cat ansible.pub
-
+      # - name: print list files
+      #   run : |
+      #     # ssh-keygen ansible
+      #     mkdir -p ~/.ssh/
+      #     pwd
+      #     ls -ls ~/
+      #     echo Host 185.195.26.130 >> ~/.ssh/config
+      #     echo User ansible >> ~/.ssh/config
+      #     echo IdentityFile ~/.ssh/ansible >> ~/.ssh/config
+      #     ssh-keyscan -t rsa remote_host  >> ~/.ssh/known_hosts
+      #     ls -la ~/.ssh/
+      #     cat ~/.ssh/config
+      #     echo ${{ vars.SSH_KEY }} >  ~/.ssh/ansible
+      #     # cat ansible.pub
+      
+      - name: executing remote ssh commands using ssh key
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          port: ${{ secrets.PORT }}
+          script: |
+                    whoami
+                    ls -al
+                    ansible -i ansible/inventory all  -m ping
+    
       - name: ping server
         run : |
           echo yes >> 185.195.26.130 && echo "open" || echo "close"
@@ -53,7 +65,7 @@ jobs:
           export ANSIBLE_PERSISTENT_CONNECT_TIMEOUT=120
           export ANSIBLE_PERSISTENT_CONNECT_RETRY_TIMEOUT=30
           export ANSIBLE_PERSISTENT_COMMAND_TIMEOUT=30
-          ansible-playbook --private-key=~/.ssh/ansible --user ansible --inventory ansible/inventory ansible/playbook.yml
+          ansible-playbook --user ansible --inventory ansible/inventory ansible/playbook.yml
     
 
      # - name: build and run
